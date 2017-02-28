@@ -1,0 +1,75 @@
+﻿<Window
+    x:Class="VisorLibreria.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converter="clr-namespace:VisorLibreria"
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    Title="MainWindow"
+    Width="525"
+    Height="350"
+    Loaded="Window_Loaded"
+    WindowState="Maximized">
+    <Window.Resources>
+        <converter:ConverterEntrada x:Key="entValu" />
+        <converter:ConverterSalida x:Key="salValu" />
+    </Window.Resources>
+    <Grid>
+        <telerik:RadGridView
+            x:Name="GAsist"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            AutoGenerateColumns="False"
+            EnableRowVirtualization="True"
+            FontSize="18"
+            IsReadOnly="True"
+            ItemsSource="{Binding}"
+            RowIndicatorVisibility="Collapsed"
+            ShowGroupPanel="False">
+            <telerik:RadGridView.Columns>
+                <!--<CustomColumn:MyColumnNumber Width="30"
+						CellStyle="{StaticResource ColumnaNumerica}"
+						Header="#" />-->
+                <telerik:GridViewDataColumn
+                    Width="*"
+                    DataMemberBinding="{Binding Usuario}"
+                    Header="Usuario"
+                    IsFilterable="True" />
+                <telerik:GridViewDataColumn
+                    Width="*"
+                    DataMemberBinding="{Binding Libreria}"
+                    Header="Librería" />
+
+                <telerik:GridViewDataColumn
+                    Width="120"
+                    DataFormatString="{}{0:dd/MM/yyyy}"
+                    DataMemberBinding="{Binding Fecha}"
+                    Header="Fecha"
+                    ShowDistinctFilters="False" />
+                <telerik:GridViewDataColumn
+                    Width="120"
+                    Background="{Binding Entrada, Converter={StaticResource entValu}}"
+                    DataFormatString="{}{0:hh:mm:ss tt}"
+                    DataMemberBinding="{Binding Entrada}"
+                    Header="Entrada"
+                    IsFilterable="False" />
+                <telerik:GridViewDataColumn
+                    Width="120"
+                    Background="{Binding Salida, Converter={StaticResource salValu}}"
+                    DataFormatString="{}{0:hh:mm:ss tt}"
+                    DataMemberBinding="{Binding Salida}"
+                    Header="Salida"
+                    IsFilterable="False" />
+                <telerik:GridViewDataColumn
+                    Width=".5*"
+                    DataMemberBinding="{Binding ObsUser}"
+                    Header="Obs. Usuario"
+                    ShowDistinctFilters="False" />
+                <telerik:GridViewDataColumn
+                    Width=".5*"
+                    DataMemberBinding="{Binding ObsChief}"
+                    Header="Obs. Superior"
+                    ShowDistinctFilters="False" />
+            </telerik:RadGridView.Columns>
+        </telerik:RadGridView>
+    </Grid>
+</Window>
